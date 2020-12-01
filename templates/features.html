@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Contact - Zerotype Website Template</title>
+	<link rel="stylesheet" href="static/style.css" type="text/css">
+	<script>
+		function hit(question) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", '/answer', true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () {
+				console.log(xhr.status);
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var json = JSON.parse(xhr.responseText);
+					console.log(json.answer);
+          document.getElementById("spinner").setAttribute('style', 'display: none;');
+					var ans = document.getElementById("answer0");
+					ans.innerText = json.answer[0];
+          document.getElementById("answersDiv").setAttribute('style', 'display: block; opacity: 1;');
+				}
+			};
+			var params = JSON.stringify({ "question": question });
+			xhr.send(params);
+			console.log("sent");
+		}
+	</script>
+</head>
+<body>
+	<div id="header">
+		<div>
+			<div class="logo">
+				<a href="/"></a>
+			</div>
+			<ul id="navigation">
+				<li>
+					<a href="/">الصفحة الرئيسية</a>
+				</li>
+				<li>
+					<a href="features.html">الخصائص</a>
+				</li>
+				<li>
+					<a href="about.html">نبذة عنا</a>
+				</li>
+				<li class="active">
+					<a href="contact.html">تواصل معنا</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="contents">
+        <img src="/static/images/box.png" alt="Img" height="342" width="368">
+		<div class="section">
+			<h1>ميزات AraQA-BERT</h1>
+			<p>
+				نموذج AraQA-BERT الذي يقبل سؤالاً كمدخل ويعطينا الإجابة المستخرجة كمخرجات ، يوضح الشكل أدناه التصميم الأولي للأداة المستندة إلى الويب
+			</p>
+          <div class = 'message'>
+                <label>: السؤال </label>
+				<input type="text" placeholder=" ضع سؤالك هنا ؟"  name="search" id="question" onFocus="this.select();" onMouseOut="javascript:return false;"/>
+                <br>
+        <input type="submit" value="إرسال" name="submit"  id="GetAnswer"/>
+                <div class="spinner" id="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+                <br>
+                <label> : الإجابة </label>
+							<div id="answersDiv">
+                <textarea  class="answertext" id="answer0">
+                </textarea>
+                </div>
+							</div>
+						</div>
+		</div>
+
+		</div>
+	</div>
+	<div id="footer">
+		<div class="clearfix">
+			<div id="connect">
+				<a href="http://freewebsitetemplates.com/go/facebook/" target="_blank" class="facebook"></a><a href="http://freewebsitetemplates.com/go/googleplus/" target="_blank" class="googleplus"></a><a href="http://freewebsitetemplates.com/go/twitter/" target="_blank" class="twitter"></a><a href="http://www.freewebsitetemplates.com/misc/contact/" target="_blank" class="tumbler"></a>
+			</div>
+			<p>
+				© 2020 AFnan. All Rights Reserved.
+			</p>
+		</div>
+	</div>
+	<script>
+		var button = document.getElementById("GetAnswer");
+		button.onclick = function () {
+			var ques = document.getElementById("question");
+			var ans = document.getElementById("answer");
+			console.log("hitting");
+      document.getElementById("spinner").setAttribute('style', 'display: block;');
+			hit(ques.value);
+		};
+	</script>
+
+</body>
+</html>
